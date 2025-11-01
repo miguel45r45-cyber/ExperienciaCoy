@@ -1,0 +1,26 @@
+.campo-informacion {
+    color: aliceblue;
+    background-color: rgba(85, 245, 245, 0.521);
+    border-radius: 5px;
+    border-style: none;
+    padding: 1.5vh;
+    margin-top: 1vh;
+    margin-left: 0; /* elimina el margen lateral que empujaba a la derecha */
+    width: 100%; /* ocupa todo el ancho disponible */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* asegura que los hijos se expandan */
+    box-sizing: border-box; /* evita que el padding rompa el ancho */
+    outline: none;
+}
+
+.boton-envio{
+    margin: 2vh;
+    padding: 1.5vh;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(85, 245, 245, 0.521);
+    color: rgb(83, 86, 88);
+    font-size: 2vh;
+    outline: none;
+}

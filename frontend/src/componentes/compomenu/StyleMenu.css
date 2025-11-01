@@ -1,0 +1,86 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.barra_inicioDeseccion, .bienvenida-usuario{
+    background-color: rgba(85, 245, 245, 0.521);
+    max-width: 35vh;
+    padding: 2vh;
+    border-radius: 5px;
+}
+
+.contenedor-menu-principal {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-top: 1.5vh;
+}
+
+.logo-menu {
+    margin-right: 1vh;
+    width: 15vh;
+    height: 15vh;
+    order: 1;
+    flex: 1 1 auto;
+}
+
+.titulo-menu {
+    font-size: 2vh;
+    max-width: 25vh;
+    color: #fff;
+    order: 2;
+    flex: 2 1 auto;
+}
+
+.busqueda-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    order: 3;
+    flex: 2 1 auto;
+}
+
+.lista-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    list-style: none;
+    padding-left: 0;
+}
+
+.lista-menu-separado {
+    margin: 1vh;
+    margin-top: 15vh;
+    font-size: 3vh;
+    text-decoration: none;
+    color: #fff;
+}
+
+.separacion-list{
+    margin: 0.2vh;
+}
+
+@media (max-width: 1020px) {
+
+        .logo-menu {
+        width: 11.5vh;
+        height: 11.5vh;
+    }
+    
+        .titulo-menu {
+            font-size: 1.3vh;
+        }
+    
+    .lista-menu {
+    flex-direction: column;
+    align-items: flex-end;
+    }
+
+    .lista-menu-separado {
+    font-size: 2.2vh;
+    }
+}

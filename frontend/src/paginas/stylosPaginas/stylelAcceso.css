@@ -1,0 +1,36 @@
+.titulo-registro,
+.titulo-login,
+.cambio-formulario {
+    color: aliceblue;
+    margin-left: 2vh; 
+}
+
+.titulo-registro,
+.titulo-login {
+    margin-bottom: 2vh;
+}
+
+.cambio-formulario {
+    margin-top: 1.5vh;
+    font-size: 3vh;
+}
+
+.link-cambio {
+    color: aliceblue;
+    cursor: pointer;
+    text-decoration: underline;
+    user-select: none;
+}
+
+.link-cambio:hover {
+    color: aliceblue;
+}
+
+.contenedor-acceso{
+    background-color: rgba(165, 245, 245, 0.432);
+    border-radius: 5vh;
+    margin: auto;
+    margin-top: 6vh;
+    max-width: 120vh;
+    padding: 5vh;
+}
