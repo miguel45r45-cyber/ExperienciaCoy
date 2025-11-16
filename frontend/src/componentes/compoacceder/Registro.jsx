@@ -39,6 +39,7 @@ export default function Register() {///guardamos los datos que el cliente escrib
 
         const data = await res.json();
         alert(data.message);
+        window.location.reload();//actualiza la pagina
     } catch (error) {//mesnaje de error en aso de que no funcione
         alert('Error al conectar con el servidor');
     }
@@ -48,12 +49,25 @@ export default function Register() {///guardamos los datos que el cliente escrib
     <div className='contenedor-registro' >
         <form onSubmit={handleSubmit} className="form-camba">
             <h1 className="titulo-registro">Registro</h1>
-            <input className='campo-informacion' name="ci" placeholder="Cédula" onChange={handleChange} />
-            <input className='campo-informacion' name="nombre" placeholder="Nombre y  Apellido" onChange={handleChange} />
-            <input className='campo-informacion' name="telefono" placeholder="Teléfono" onChange={handleChange} />
-            <input className='campo-informacion' name="correo" type="email" placeholder="Correo" onChange={handleChange} />
-            <input className='campo-informacion' name="contrasena" type="password" placeholder="Contraseña" onChange={handleChange} />
-            <input className='campo-informacion' name="confirmarContrasena" type="password" placeholder="Confirmar Contraseña" onChange={handleChange} />
+
+            <label className='nombreCampo' > Cédula
+                <input className='campo-informacion' name="ci" placeholder="Cédula" onChange={handleChange} />
+            </label>
+            <label className='nombreCampo' >Nombre y Apellido
+                <input className='campo-informacion' name="nombre" placeholder="Nombre y Apellido" onChange={handleChange} />
+            </label>
+            <label className='nombreCampo' >Teléfono
+                <input className='campo-informacion' name="telefono" placeholder="Teléfono" onChange={handleChange} />
+            </label>
+            <label className='nombreCampo' >Correo
+                <input className='campo-informacion' name="correo" type="email" placeholder="Correo" onChange={handleChange} />
+            </label>
+            <label className='nombreCampo' >Contraseña
+                <input className='campo-informacion' name="contrasena" type="password" placeholder="Contraseña" onChange={handleChange} />
+            </label >
+            <label className='nombreCampo' >Confirmar Contraseña
+                <input className='campo-informacion' name="confirmarContrasena" type="password" placeholder="Confirmar Contraseña" onChange={handleChange} />
+            </label>
             <button className='boton-envio' type="submit">Registrarse</button>
         </form>
     </div>

@@ -4,11 +4,32 @@
     box-sizing: border-box;
 }
 
-.barra_inicioDeseccion, .bienvenida-usuario{
-    background-color: rgba(85, 245, 245, 0.521);
-    max-width: 35vh;
-    padding: 2vh;
+.bienvenida-usuario{
+    background-color: rgba(165, 245, 245, 0.432);
+    margin-top: 2vh;
+    margin-right: 2vh;
+    max-width: 60vh;
+    float: right;
+    padding: 1.8vh;
     border-radius: 5px;
+    text-align: center;
+}
+
+
+
+.mensajeBienbenida{
+    color: aliceblue;
+    font-size: 4vh;
+}
+
+.botonCerrarSesion{
+    background-color: rgba(85, 245, 245, 0.521);
+    color: aliceblue;
+    padding: 1.3vh;
+    margin: 1vh;
+    font-size: 3vh;
+    border-radius: 4vh;
+    border-style: none;
 }
 
 .contenedor-menu-principal {
@@ -65,6 +86,12 @@
 }
 
 @media (max-width: 1020px) {
+
+        .bienvenida-usuario{
+        margin: auto;
+        float: none;
+        max-width: 95%;
+    }
 
         .logo-menu {
         width: 11.5vh;

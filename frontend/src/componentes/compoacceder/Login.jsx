@@ -53,8 +53,12 @@ export default function Login() {
     <div className='contenedor-registro' >
         <form onSubmit={handleSubmit} className="form-camba">
             <h1 className="titulo-login">Iniciar sesión</h1>
+            <label className='nombreCampo'> Correo Electronico
             <input className='campo-informacion' name="correo" type="email" placeholder="Correo" onChange={handleChange} />
+            </label>
+            <label className='nombreCampo'>Contraseña
             <input className='campo-informacion' name="contrasena" type="password" placeholder="Contraseña" onChange={handleChange} />
+            </label>
             <button className='boton-envio' type="submit">Entrar</button>
         </form>
     </div>

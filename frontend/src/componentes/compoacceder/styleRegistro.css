@@ -4,7 +4,7 @@
     border-radius: 5px;
     border-style: none;
     padding: 1.5vh;
-    margin-top: 1vh;
+    margin-bottom: 1.5vh;
     margin-left: 0; /* elimina el margen lateral que empujaba a la derecha */
     width: 100%; /* ocupa todo el ancho disponible */
     display: flex;
@@ -12,6 +12,12 @@
     align-items: stretch; /* asegura que los hijos se expandan */
     box-sizing: border-box; /* evita que el padding rompa el ancho */
     outline: none;
+    font-size: 2.5vh;
+}
+
+.nombreCampo{
+    color: aliceblue;
+    font-size: 3vh;
 }
 
 .boton-envio{

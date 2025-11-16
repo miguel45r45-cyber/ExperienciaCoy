@@ -4,7 +4,7 @@ import Menu from './componentes/compomenu/Menu'//importamos menu y las paginas
 import Inicio from './paginas/Inicio'
 import Acceder from './paginas/Acceder'
 import Paquetes from './paginas/Paquetes'
-import Contacto from './paginas/Contacto'
+import Contactos from './paginas/Contactos'
 import Informacion from './paginas/Informacion'
 import Reservaciones from './paginas/Reservaciones'
 
@@ -34,7 +34,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Inicio/>} />
               <Route path="/Acceder" element={<Acceder/>} />
-              <Route path="/Contacto" element={<Contacto />} />
+              <Route path="/Contactos" element={<Contactos />} />
               <Route path="/Paquetes" element={<Paquetes />} />
               <Route path="/Informacion" element={<Informacion />} />
               <Route path="/Reservaciones" element={<Reservaciones />} />

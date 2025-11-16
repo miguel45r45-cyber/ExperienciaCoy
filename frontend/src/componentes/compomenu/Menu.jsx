@@ -25,8 +25,8 @@ function Menu() {
     <>
       {usuario && (
         <div className="bienvenida-usuario">
-          <span >Bienvenido, {usuario.nombre}</span>
-          <button onClick={cerrarSesion}>Cerrar sesión</button>
+              <span className='mensajeBienbenida'>Bienvenido, {usuario.nombre}</span>
+              <button className='botonCerrarSesion' onClick={cerrarSesion}>Cerrar sesión</button>
         </div>
       )}
 
@@ -44,8 +44,8 @@ function Menu() {
             <ul className='lista-menu'>
               <li><Link className='lista-menu-separado' to="/"><b>Inicio</b></Link></li>
               <li><Link className='lista-menu-separado' to="/Acceder"><b>Acceder</b></Link></li>
-              <li><Link className='lista-menu-separado' to="/Contacto"><b>Contacto</b></Link></li>
               <li><Link className='lista-menu-separado' to="/Paquetes"><b>Paquetes</b></Link></li>
+              <li><Link className='lista-menu-separado' to="/Contactos"><b>Contactos</b></Link></li>
               <li><Link className='lista-menu-separado' to="/Informacion"><b>Información</b></Link></li>
               <li><Link className='lista-menu-separado' to="/Reservaciones"><b>Reservaciones</b></Link></li>
             </ul>
