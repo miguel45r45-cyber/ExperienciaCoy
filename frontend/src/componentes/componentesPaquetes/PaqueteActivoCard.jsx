@@ -1,5 +1,5 @@
 import { getCamposVisibles } from "../componentesPaquetes/utils/paqueteUtils";
-import { inactivarPaquete, eliminarPaquete, guardarEdicion } from "../componentesPaquetes/services/paquetesService";
+import { inactivarPaquete, eliminarPaquete, guardarEdicion } from "../componentesPaquetes/services/PaquetesFunciones.jsx";
 import GestionReservacion from "../componenteReservacion/GestionReservacion";
 import "../componentesPaquetes/StylePaquetes.css";
 

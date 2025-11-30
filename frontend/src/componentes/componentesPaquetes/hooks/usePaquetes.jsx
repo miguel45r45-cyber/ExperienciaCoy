@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchPaquetes } from "../services/paquetesService";
+import { fetchPaquetes } from "../services/PaquetesFunciones.jsx";
 
 export function usePaquetes() {
   const [paquetes, setPaquetes] = useState([]);
