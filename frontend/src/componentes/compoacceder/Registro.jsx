@@ -3,7 +3,7 @@ import "../compoacceder/styleRegistro.css";
 import { UserContext } from "../../UserContext";
 
 export default function Register({ onRegistroExitoso }) {
-  const { login } = useContext(UserContext);
+  const { login, user } = useContext(UserContext); // 👈 traemos el user
 
   const [form, setForm] = useState({
     ci: '',
@@ -20,6 +20,12 @@ export default function Register({ onRegistroExitoso }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 🚫 Bloquear si ya está logueado
+    if (user) {
+      alert("Ya tienes una sesión activa, no puedes registrar otro usuario.");
+      return;
+    }
 
     // Validar campos vacíos
     for (const campo in form) {
@@ -44,7 +50,6 @@ export default function Register({ onRegistroExitoso }) {
       return;
     }
 
-    // Validar contraseñas iguales
     if (form.contrasena !== form.confirmarContrasena) {
       alert('Las contraseñas no coinciden');
       return;
@@ -61,9 +66,8 @@ export default function Register({ onRegistroExitoso }) {
       alert(data.message);
 
       if (res.ok) {
-        // ⚡ El backend debe devolver cliente_id (result.insertId)
-        const user = {
-          cliente_id: data.cliente_id, // 👈 importante
+        const userData = {
+          cliente_id: data.cliente_id,
           ci: form.ci,
           nombre: form.nombre,
           telefono: form.telefono,
@@ -71,10 +75,8 @@ export default function Register({ onRegistroExitoso }) {
           rol: 'cliente'
         };
 
-        // Guardamos en contexto
-        login(user, data.token);
+        login(userData, data.token);
 
-        // Callback opcional
         if (onRegistroExitoso) {
           onRegistroExitoso(data.cliente_id);
         }

@@ -11,7 +11,7 @@
 .body-inicio{
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), url("/imagenes/fondoprincipal.png");
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url("/imagenes/fondoprincipal.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
