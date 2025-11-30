@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../UserContext";
-import { fetchPaquetes, guardarEdicion } from "../componentesPaquetes/services/PaquetesFunciones.jsx";
+import { fetchPaquetes, guardarEdicion } from "../componentesPaquetes/funcionesAdmin/PaquetesFunciones.jsx";
 import PaqueteActivoCard from "../componentesPaquetes/PaqueteActivoCard";
 import PaqueteInactivoCard from "../componentesPaquetes/PaqueteInactivoCard";
 import { decodeRol } from "../componentesPaquetes/utils/decodeRol";
