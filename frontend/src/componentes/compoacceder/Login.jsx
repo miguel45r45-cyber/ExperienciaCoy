@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { useContext } from "react";
-import { UserContext } from "../../UserContext"; // importa tu contexto global
+import { useState, useContext } from "react";
+import { UserContext } from "../../UserContext"; 
 import "../compoacceder/styleRegistro.css";
 
 export default function Login() {
@@ -9,7 +8,7 @@ export default function Login() {
     contrasena: "",
     });
 
-  const { login } = useContext(UserContext); // usamos la función login del contexto
+  const { login, user } = useContext(UserContext); // 👈 traemos también el user
 
     const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,6 +16,18 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Bloquear si ya está logueado
+    
+    if (user === user){
+    alert("Ya estas en tu cuenta");
+    return;
+    }
+
+    if (user) {
+        alert("Ya tienes una sesión activa, no puedes iniciar otra.");
+        return;
+    }
 
     if (!form.correo || !form.contrasena) {
         alert("Correo y contraseña son obligatorios");
@@ -32,46 +43,48 @@ export default function Login() {
 
         const data = await res.json();
         alert(data.message);
-        window.location.reload();
+
+
 
         if (res.ok) {
         // usamos el contexto para guardar user + token
         login(data.user, data.token);
+        window.location.reload();
         }
     } catch (error) {
         alert("Error al conectar con el servidor");
     }
-};
+    };
 
     return (
     <div className="contenedor-registro">
         <form onSubmit={handleSubmit} className="form-camba">
-        <h1 className="titulo-login ">Iniciar sesión</h1>
-            <div className="containerLogin">
-                <label className="nombreCampo">
-                    Correo Electrónico
-                <input
-                    className="campo-informacion"
-                    name="correo"
-                    type="email"
-                    placeholder="Correo"
-                    onChange={handleChange}
-                />
-                </label>
-                <label className="nombreCampo">
-                    Contraseña
-                    <input
-                    className="campo-informacion"
-                    name="contrasena"
-                    type="password"
-                    placeholder="Contraseña"
-                    onChange={handleChange}
-                />
-                </label>
-                    <button className="boton-envio" type="submit">
-                        Entrar
-                    </button>
-            </div>
+        <h1 className="titulo-login">Iniciar sesión</h1>
+        <div className="containerLogin">
+            <label className="nombreCampo">
+            Correo Electrónico
+            <input
+                className="campo-informacion"
+                name="correo"
+                type="email"
+                placeholder="Correo"
+                onChange={handleChange}
+            />
+            <label className="nombreCampo">
+            </label>
+            Contraseña
+            <input
+                className="campo-informacion"
+                name="contrasena"
+                type="password"
+                placeholder="Contraseña"
+                onChange={handleChange}
+            />
+            </label>
+            <button className="boton-envio" type="submit">
+            Entrar
+            </button>
+        </div>
         </form>
     </div>
     );
