@@ -29,34 +29,39 @@ export default function PaquetesList() {
 
   return (
     <div className="Paquete-Publi">
-      <h2 className="TituloPaqueteEstado">Paquetes Activos</h2>
-      {paquetesActivos.map((p) => (
-        <div key={p.idPaquete} className="paqueteEnvuelto">
-          <PaqueteActivoCard
-            paquete={p}
-            rol={rol}
-            token={token}
-            editando={editando}
-            campoEditando={campoEditando}
-            setEditando={setEditando}
-            setCampoEditando={setCampoEditando}
-            guardarEdicion={(paq) =>
-              guardarEdicion(paq, campoEditando, token).then((data) => {
-                alert(data?.mensaje || "Edición guardada");
-                setEditando(null);
-                setCampoEditando(null);
-                setPaquetes((prev) =>
-                  prev.map((x) =>
-                    x.idPaquete === paq.idPaquete ? { ...x, ...paq } : x
-                  )
-                );
-              })
-            }
-            setPaquetes={setPaquetes}
-          />
+      {rol === "admin" && paquetesActivos.length === 0 ? (
+        <h2 className="TituloPaqueteEstado">No hay paquetes activos</h2>
+      ) : (
+        paquetesActivos.map((p) => (
+        <div>
+          <div key={p.idPaquete} className="paqueteEnvuelto">
+            <PaqueteActivoCard
+              paquete={p}
+              rol={rol}
+              token={token}
+              editando={editando}
+              campoEditando={campoEditando}
+              setEditando={setEditando}
+              setCampoEditando={setCampoEditando}
+              guardarEdicion={(paq) =>
+                guardarEdicion(paq, campoEditando, token).then((data) => {
+                  alert(data?.mensaje || "Edición guardada");
+                  setEditando(null);
+                  setCampoEditando(null);
+                  setPaquetes((prev) =>
+                    prev.map((x) =>
+                      x.idPaquete === paq.idPaquete ? { ...x, ...paq } : x
+                    )
+                  );
+                })
+              }
+              setPaquetes={setPaquetes}
+            />
+          </div>
         </div>
-      ))}
-
+        ))
+      )}
+  
       {rol === "admin" && paquetesInactivos.length > 0 && (
         <>
           <h2 className="TituloPaqueteEstado">Paquetes Inactivos</h2>
@@ -68,5 +73,4 @@ export default function PaquetesList() {
         </>
       )}
     </div>
-  );
-}
+)};
