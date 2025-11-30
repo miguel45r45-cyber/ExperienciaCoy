@@ -1,0 +1,16 @@
+.tituloPagina{
+    color: aliceblue;
+}
+
+.contextoEmpre{
+    background-color: rgba(165, 245, 245, 0.432);
+    border-radius: 5vh;
+    margin: auto;
+    margin-top: 6vh;
+    max-width: 120vh;
+    padding: 5vh;
+}
+
+.infoEmpresa{
+    color: aliceblue;
+}

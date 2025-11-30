@@ -15,18 +15,40 @@
     font-size: 2.5vh;
 }
 
-.nombreCampo{
+.nombreCampo,
+.pregunta{
     color: aliceblue;
     font-size: 3vh;
 }
 
-.boton-envio{
-    margin: 2vh;
+
+.boton-envio,
+.boton_guardar,
+.boton_buscarPregunta,
+.boton_Cambio{
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     padding: 1.5vh;
     border-radius: 10px;
     border: none;
-    background-color: rgba(85, 245, 245, 0.521);
-    color: rgb(83, 86, 88);
-    font-size: 2vh;
+    background-color: rgba(11, 206, 206, 0.671);
+    color: rgb(255, 255, 255);
+    font-size: 2.5vh;
     outline: none;
+}
+
+.tituloPregunta,
+.tituloRecuperarClaveCorreo{
+    color: aliceblue;
+    font-size: 5vh;
+}
+
+.containerFromPregunta,
+.containerLogin,
+.containerRegistrar,
+.containerBuscarCorreo,
+.containerCambioClave{
+    max-width: 96%;
+    margin: auto;
+    margin-top: 3vh;
 }

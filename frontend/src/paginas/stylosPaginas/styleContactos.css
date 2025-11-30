@@ -1,0 +1,44 @@
+.containerContacto{
+    max-width: 50%;
+    background-color: rgba(118, 240, 240, 0.377);
+    border-radius: 5vh;
+    margin: auto;
+    padding: 3vh;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+
+.Paginacontacto{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    color: aliceblue;
+}
+
+.tituloContactos{
+    background-color: rgba(106, 243, 243, 0.658);
+    max-width: 80%;
+    color: aliceblue;
+    padding: 0.5vh;
+    margin: auto;
+    text-align: center;
+    border-radius: 5vh;
+    font-size: 6vh;
+}
+
+.tituloTsecundario{
+    background-color: rgba(106, 243, 243, 0.658);
+    max-width: 60%;
+    color: aliceblue;
+    padding: 0.5vh;
+    margin: auto;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    text-align: center;
+    border-radius: 5vh;
+    font-size: 5vh;
+}
+
+.info{
+    color: aliceblue;
+    text-align: center;
+}

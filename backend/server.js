@@ -1,10 +1,17 @@
-const express = require('express'); // manejo y flujo de datos
-const cors = require('cors');       // habilita peticiones desde el frontend
-const authRoutes = require('./routes/autentificador'); // rutas de login/registro
-const paquetesRoutes = require('./routes/Paquetes');   // rutas CRUD de paquetes
-const db = require('./dataBase/db'); // conexión con la base de datos
+const express = require('express'); 
+const cors = require('cors');       
+const auth = require('./routes/autentificador'); 
+const paquetes = require('./routes/Paquetes');
+const preguntaSeguridad = require('./routes/preguntaSeguridad');   
+const reservaciones = require('./routes/reservaciones'); 
+const reservacionesAgrupadas = require('./routes/reservacionesAgrupadas'); 
+const seguimiento = require('./routes/seguimiento'); 
+const reservacionesEstado = require('./routes/reservacionesEstado');
+const reservacionesPDF = require('./routes/reservacionesPDF');
+const metodoPago = require("./routes/metodoPago");
+const db = require('./dataBase/db'); 
 
-const app = express(); // instancia de express
+const app = express(); 
 
 // Middlewares globales
 app.use(cors());
@@ -14,8 +21,15 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 // Rutas principales
-app.use('/api/autentificador', authRoutes); // login/registro
-app.use('/api/paquetes', paquetesRoutes);   // CRUD de paquetes
+app.use('/api/autentificador', auth); 
+app.use('/api', preguntaSeguridad);
+app.use('/api/paquetes', paquetes);   
+app.use('/api/reservaciones', reservaciones); 
+app.use('/api/reservaciones-agrupadas', reservacionesAgrupadas); 
+app.use('/api/seguimiento', seguimiento);
+app.use('/api/reservaciones-estado', reservacionesEstado);
+app.use('/api/reservaciones-pdf', reservacionesPDF);
+app.use("/api/metodo_pago", metodoPago);
 
 // Verificar conexión con la base de datos
 db.connect((error) => {

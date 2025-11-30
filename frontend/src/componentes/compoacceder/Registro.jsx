@@ -1,75 +1,115 @@
-import { useState } from 'react';
-import "../compoacceder/styleRegistro.css"
+import { useState, useContext } from 'react';
+import "../compoacceder/styleRegistro.css";
+import { UserContext } from "../../UserContext";
 
-export default function Register() {///guardamos los datos que el cliente escribe escribe
-    const [form, setForm] = useState({
+export default function Register({ onRegistroExitoso }) {
+  const { login } = useContext(UserContext);
+
+  const [form, setForm] = useState({
     ci: '',
     nombre: '',
     telefono: '',
     correo: '',
     contrasena: '',
     confirmarContrasena: '',
-    });
+  });
 
-    const handleChange = (e) => {//para actualizar los campos
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    };
+  };
 
-    const handleSubmit = async (e) => {
-    e.preventDefault();//evita que la pagina se recargue 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    for (const campo in form) {//verifica que todos los campos esten llenos
-        if (!form[campo]) {
+    // Validar campos vacíos
+    for (const campo in form) {
+      if (!form[campo]) {
         alert('Te falta llenar uno o más campos');
         return;
-        }
+      }
     }
 
-    if (form.contrasena !== form.confirmarContrasena) {//verifica que las contraseñas sean las mismas
-        alert('Las contraseñas no coinciden');
-        return;
+    if (form.telefono.length <= 10) {
+      alert('Le faltan datos en su número telefónico');
+      return;
     }
 
-    try {//envia los datos al servidor con el usu de await para evitar que se salte el paso
-        const res = await fetch('http://192.168.1.163:5000/api/autentificador/register', {
+    if (form.ci.length <= 7) {
+      alert('Le faltan datos en su número de cédula');
+      return;
+    }
+
+    if (form.contrasena.length <= 7) {
+      alert('Su contraseña tiene que tener 8 o más caracteres');
+      return;
+    }
+
+    // Validar contraseñas iguales
+    if (form.contrasena !== form.confirmarContrasena) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+
+    try {
+      const res = await fetch('http://localhost:5000/api/autentificador/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
-        });
+      });
 
-        const data = await res.json();
-        alert(data.message);
-        window.location.reload();//actualiza la pagina
-    } catch (error) {//mesnaje de error en aso de que no funcione
-        alert('Error al conectar con el servidor');
+      const data = await res.json();
+      alert(data.message);
+
+      if (res.ok) {
+        // ⚡ El backend debe devolver cliente_id (result.insertId)
+        const user = {
+          cliente_id: data.cliente_id, // 👈 importante
+          ci: form.ci,
+          nombre: form.nombre,
+          telefono: form.telefono,
+          correo: form.correo,
+          rol: 'cliente'
+        };
+
+        // Guardamos en contexto
+        login(user, data.token);
+
+        // Callback opcional
+        if (onRegistroExitoso) {
+          onRegistroExitoso(data.cliente_id);
+        }
+      }
+    } catch (error) {
+      alert('Error al conectar con el servidor');
     }
-    };
-//formulario
-    return (
-    <div className='contenedor-registro' >
-        <form onSubmit={handleSubmit} className="form-camba">
-            <h1 className="titulo-registro">Registro</h1>
+  };
 
-            <label className='nombreCampo' > Cédula
-                <input className='campo-informacion' name="ci" placeholder="Cédula" onChange={handleChange} />
-            </label>
-            <label className='nombreCampo' >Nombre y Apellido
-                <input className='campo-informacion' name="nombre" placeholder="Nombre y Apellido" onChange={handleChange} />
-            </label>
-            <label className='nombreCampo' >Teléfono
-                <input className='campo-informacion' name="telefono" placeholder="Teléfono" onChange={handleChange} />
-            </label>
-            <label className='nombreCampo' >Correo
-                <input className='campo-informacion' name="correo" type="email" placeholder="Correo" onChange={handleChange} />
-            </label>
-            <label className='nombreCampo' >Contraseña
-                <input className='campo-informacion' name="contrasena" type="password" placeholder="Contraseña" onChange={handleChange} />
-            </label >
-            <label className='nombreCampo' >Confirmar Contraseña
-                <input className='campo-informacion' name="confirmarContrasena" type="password" placeholder="Confirmar Contraseña" onChange={handleChange} />
-            </label>
-            <button className='boton-envio' type="submit">Registrarse</button>
+  return (
+    <div className='contenedor-registro'>
+      <h1 className="titulo-registro">Registro</h1>
+      <div className='containerRegistrar'>
+        <form onSubmit={handleSubmit} className="form-camba">
+          <label className='nombreCampo'>Cédula
+            <input className='campo-informacion' name="ci" placeholder="Cédula" onChange={handleChange} />
+          </label>
+          <label className='nombreCampo'>Nombre y Apellido
+            <input className='campo-informacion' name="nombre" placeholder="Nombre y Apellido" onChange={handleChange} />
+          </label>
+          <label className='nombreCampo'>Teléfono
+            <input className='campo-informacion' name="telefono" placeholder="Teléfono" onChange={handleChange} />
+          </label>
+          <label className='nombreCampo'>Correo
+            <input className='campo-informacion' name="correo" type="email" placeholder="Correo" onChange={handleChange} />
+          </label>
+          <label className='nombreCampo'>Contraseña
+            <input className='campo-informacion' name="contrasena" type="password" placeholder="Contraseña" onChange={handleChange} />
+          </label>
+          <label className='nombreCampo'>Confirmar Contraseña
+            <input className='campo-informacion' name="confirmarContrasena" type="password" placeholder="Confirmar Contraseña" onChange={handleChange} />
+          </label>
+          <button className='boton-envio' type="submit">Registrarse</button>
         </form>
+      </div>
     </div>
-    );
+  );
 }

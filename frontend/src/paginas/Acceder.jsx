@@ -1,37 +1,77 @@
 import { useState } from "react";
-import Login from "../componentes/compoacceder/Login";//importamos los componentes login y registro
+import Login from "../componentes/compoacceder/Login";
 import Registro from "../componentes/compoacceder/Registro";
+import CrearPreguntaSeguridad from "../componentes/compoacceder/CrearPreguntaSeguridad"; 
+import RecuperarClave from "../componentes/compoacceder/RecuperarClave"; 
 import "./stylosPaginas/stylelAcceso.css";
 
 function Acceder() {
-    const [mostrarLogin, setMostrarLogin] = useState(true);
+  const [vista, setVista] = useState("login"); // login | registro | pregunta | recuperar
+  const [clienteId, setclienteId] = useState(null);
 
-    //establecemos si mostrar login es tru lo muestra si es fals registro
-    return (
+  // Cuando el registro es exitoso, pasamos al formulario de pregunta
+  const handleRegistroExitoso = (nuevoclienteId) => {
+    setclienteId(nuevoclienteId);
+    setVista("pregunta");
+  };
+
+  return (
     <div className="contenedor-acceso">
-        {mostrarLogin ? (
+      {vista === "login" && (
         <div className="login">
-            <Login />
-            <p className="cambio-formulario">
+          <Login />
+          <p className="cambio-formulario">
             ¿No tienes cuenta?{" "}
-            <span onClick={() => setMostrarLogin(false)} className="link-cambio">
-                Regístrate
+            <span onClick={() => setVista("registro")} className="link-cambio">
+              Regístrate
             </span>
-            </p>
+          </p>
+          <p className="cambio-formulario">
+            ¿Olvidaste tu contraseña?{" "}
+            <span onClick={() => setVista("recuperar")} className="link-cambio">
+              Recuperar clave
+            </span>
+          </p>
         </div>
-        ) : (
+      )}
+
+      {vista === "registro" && (
         <div className="Registro">
-            <Registro />
-            <p className="cambio-formulario">
+          <Registro onRegistroExitoso={handleRegistroExitoso} />
+          <p className="cambio-formulario">
             ¿Ya tienes cuenta?{" "}
-            <span onClick={() => setMostrarLogin(true)} className="link-cambio">
-                Inicia sesión
+            <span onClick={() => setVista("login")} className="link-cambio">
+              Inicia sesión
             </span>
-            </p>
+          </p>
         </div>
-        )}
+      )}
+
+      {vista === "pregunta" && (
+        <div className="PreguntaSeguridad">
+          <CrearPreguntaSeguridad cliente_id={clienteId} />
+          <p className="cambio-formulario">
+            ¿Ya configuraste tu pregunta?{" "}
+            <span onClick={() => setVista("login")} className="link-cambio">
+              Ir al login
+            </span>
+          </p>
+        </div>
+      )}
+
+      {vista === "recuperar" && (
+        <div className="RecuperarClave">
+          <RecuperarClave />
+          <p className="cambio-formulario">
+            ¿Ya recuerdas tu contraseña?{" "}
+            <span onClick={() => setVista("login")} className="link-cambio">
+              Inicia sesión
+            </span>
+          </p>
+        </div>
+      )}
     </div>
-    );
+  );
 }
 
 export default Acceder;

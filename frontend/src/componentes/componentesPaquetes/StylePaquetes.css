@@ -1,0 +1,171 @@
+.bloqueDeCreacion{
+    background-color: rgba(165, 245, 245, 0.432);
+    border-radius: 5vh;
+    margin: auto;
+    margin-top: 3vh;
+    max-width: 55%;
+    padding: 5vh;
+}
+
+.TituloCampo{
+    color: aliceblue;
+    font-size: 3vh;
+    margin-bottom: 1vh;
+}
+
+.TituloTalba{
+    color: aliceblue;
+    margin-bottom: 2vh;
+}
+
+.TituloSinPaquetes{
+    color: aliceblue;
+    margin-bottom: 2vh;
+    font-size: 4vh;
+    margin: 3vh;
+}
+
+
+.botonPublicar{
+    margin: 2vh;
+    padding: 1.5vh;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(85, 245, 245, 0.521);
+    color: rgb(83, 86, 88);
+    font-size: 3vh;
+    outline: none;
+}
+
+.camposCreacion{
+    color: aliceblue;
+    background-color: rgba(85, 245, 245, 0.521);
+    border-radius: 5px;
+    border-style: none;
+    padding: 1.5vh;
+    margin-bottom: 1.5vh;
+    margin-left: 0; /* elimina el margen lateral que empujaba a la derecha */
+    width: 100%; /* ocupa todo el ancho disponible */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* asegura que los hijos se expandan */
+    box-sizing: border-box; /* evita que el padding rompa el ancho */
+    outline: none;
+    font-size: 2.5vh;
+}
+/*--------------------------------------------------------------------------------------------------*/
+
+.TituloPaqueteEstado{
+    color: aliceblue;
+}
+
+.componentesEstado{
+    border-radius: 2vh;
+    max-width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.BotonesPaquetes{
+    color: aliceblue;
+    background-color: rgba(85, 245, 245, 0.521);
+    border-style: none;
+    margin: 1.5vh;
+    border-radius: 1vh;
+    padding: 1vh;
+    font-size: 3vh;
+}
+
+.CartaPaquete{
+    background: radial-gradient(#22a580, #4ca5e0b2);
+    max-width: 70vh;
+    border-radius: 100px;
+    padding: 5vh;
+    margin: auto;
+}
+
+.TituloPaquete{
+    color: aliceblue;
+    font-size: 6vh;
+    margin-top: 0.5vh;
+    margin-bottom: 1.5vh;
+}
+
+.NombreInfo{
+    color: aliceblue;
+}
+
+.imagen, .imagenPaquete {
+    width: 45vh;
+    height: 45vh;
+    object-fit: cover; /* recorta y adapta */
+    border-radius: 6vh;
+    display: block;
+    margin: auto;
+}
+
+
+.contenedorPaqueInactvo{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+
+.cPaqueteInactivo{
+    padding: 4vh;
+}
+
+.containerinfoPaquete{
+    margin-left: 5%;
+    margin-right: 5vh;
+}
+
+.containerEditar{
+    padding: 3vh;
+}
+
+.paqueteEnvuelto{
+    margin-bottom: 6vh;
+}
+
+.tituloSeccion{
+    text-align: center;
+    color: aliceblue;
+}
+
+.botonEdid{
+    color: aliceblue;
+    background-color: rgba(85, 245, 245, 0.521);
+    border-style: none;
+    margin: 1vh;
+    border-radius: 1vh;
+    padding: 1vh;
+    font-size: 3vh;
+}
+
+.inputEditar{
+    color: aliceblue;
+    background-color: rgba(85, 245, 245, 0.521);
+    border-radius: 5px;
+    border-style: none;
+    padding: 1.5vh;
+    margin-bottom: 1.5vh;
+    margin-left: 0; /* elimina el margen lateral que empujaba a la derecha */
+    width: 30vh; /* ocupa todo el ancho disponible */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* asegura que los hijos se expandan */
+    box-sizing: border-box; /* evita que el padding rompa el ancho */
+    outline: none;
+    font-size: 2.5vh;
+}
+
+.formEditar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+

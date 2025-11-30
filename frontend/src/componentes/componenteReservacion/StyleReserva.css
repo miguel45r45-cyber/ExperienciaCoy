@@ -1,0 +1,97 @@
+.BotonReserva{
+    margin: 2vh;
+    padding: 1.5vh;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(85, 245, 245, 0.521);
+    color: rgb(252, 252, 252);
+    font-size: 2vh;
+    outline: none;
+}
+
+.infoMonto,
+.nombreCampo{
+    color: aliceblue;
+    font-size: 3vh;
+}
+
+.campoCupos{
+    max-width: 8vh;
+}
+
+
+.paqueteConjunto{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.reservacionBloque{
+    max-width: 100%;
+    background-color: rgba(85, 245, 245, 0.521);
+    border-radius: 5vh;
+    margin: auto;
+    padding: 3vh;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+
+.nombreInfo{
+    color: aliceblue;
+    font-size: 3.5vh;
+}
+
+.tituloReserva{
+    color: aliceblue;
+    font-size: 7vh;
+    text-align: center;
+    padding: 3vh;
+}
+
+.paqueteConjunto{
+    background-color: rgba(2, 80, 80, 0.521);
+    max-width: 40%;
+    border-radius: 5vh;
+    margin: auto;
+    margin-bottom: 5vh;
+    padding: 3vh;
+}
+
+.btn{
+    margin: 1vh;
+    padding: 1.5vh;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(3, 112, 112, 0.521);
+    color: rgb(206, 214, 219);
+    font-size: 3vh;
+    outline: none;
+}
+
+.campoCupos{
+    border-radius: 3vh;
+    border-style: none;
+    background-color: rgba(85, 245, 245, 0.521);
+    outline: none;
+    color: aliceblue;
+    text-align: center;
+}
+
+.campoComentario{
+    border-radius: 3vh;
+    border-style: none;
+    background-color: rgba(85, 245, 245, 0.521);
+    outline: none;
+    color: aliceblue;
+    padding: 2vh;
+}
+
+.btnDescarga{
+    margin: 1vh;
+    padding: 1.5vh;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(13, 216, 216, 0.705);
+    color: aliceblue;
+    font-size: 3vh;
+    outline: none;
+}
