@@ -34,4 +34,4 @@ seguimiento.get('/:idReservacion', (req, res) => {
   });
 });
 
-module.exports = seguimiento; // 👈 exporta el router
+module.exports = seguimiento; 

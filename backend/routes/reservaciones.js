@@ -73,7 +73,7 @@ rutaReservaciones.get('/', (req, res) => {
   });
 });
 
-// ✅ Nuevo endpoint: verificar si un paquete tiene reservaciones activas
+//Nuevo endpoint: verificar si un paquete tiene reservaciones activas
 rutaReservaciones.get('/paquete/:id/check', (req, res) => {
   const { id } = req.params;
   const sql = "SELECT COUNT(*) AS total FROM reservaciones WHERE paquete_id = ? AND estado = 'aprobada'";

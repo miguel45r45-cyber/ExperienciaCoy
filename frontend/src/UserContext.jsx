@@ -26,7 +26,7 @@ export function UserProvider({ children }) {
     if (guardado) setUser(JSON.parse(guardado));
     if (guardadoToken) {
       setToken(guardadoToken);
-      setRol(decodeRol(guardadoToken)); // 👈 decodifica rol al cargar
+      setRol(decodeRol(guardadoToken)); // decodifica rol al cargar
     }
   }, []);
 
@@ -36,7 +36,7 @@ export function UserProvider({ children }) {
     localStorage.setItem("token", jwtToken);
     setUser(cliente);
     setToken(jwtToken);
-    setRol(decodeRol(jwtToken)); // 👈 decodifica rol al hacer login
+    setRol(decodeRol(jwtToken)); // decodifica rol al hacer login
   };
 
   // Función para logout

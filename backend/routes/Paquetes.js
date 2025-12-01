@@ -79,7 +79,7 @@ rutaPaquetes.get('/:id', (req, res) => {
 });
 
 /**
- * ✅ Consultar si un paquete tiene reservaciones activas
+ * Consultar si un paquete tiene reservaciones activas
  */
 rutaPaquetes.get('/:id/reservaciones/check', verificarTokenAdmin, (req, res) => {
   const idPaquete = req.params.id;

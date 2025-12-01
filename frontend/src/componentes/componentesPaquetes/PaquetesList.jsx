@@ -10,7 +10,7 @@ export default function PaquetesList() {
   const [editando, setEditando] = useState(null);
   const [campoEditando, setCampoEditando] = useState(null);
 
-  // 👇 ahora el rol viene directo del contexto
+  // ahora el rol viene directo del contexto
   const { token, rol } = useContext(UserContext);
 
   // cargar paquetes al montar
@@ -20,7 +20,7 @@ export default function PaquetesList() {
     });
   }, []);
 
-  // ✅ usar estadoPaqueteActivo en vez de activo
+  // usar estadoPaqueteActivo en vez de activo
   const paquetesActivos = paquetes.filter(
     (p) => p.estadoPaqueteActivo === 1 || p.estadoPaqueteActivo === true
   );
@@ -91,7 +91,7 @@ export default function PaquetesList() {
           <h2 className="TituloPaqueteEstado">Paquetes Inactivos</h2>
           {paquetesInactivos.map((p) => (
             <div key={p.idPaquete} className="paqueteEnvuelto inactivo">
-              {/* ✅ pasar token y setPaquetes para reactivar */}
+              {/*pasar token y setPaquetes para reactivar */}
               <PaqueteInactivoCard paquete={p} token={token} setPaquetes={setPaquetes} />
             </div>
           ))}

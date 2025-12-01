@@ -1,5 +1,5 @@
 import { getCamposVisibles } from "../componentesPaquetes/camposPaquetes/camposLlenosPaquetes";
-import { reactivarPaquete } from "../componentesPaquetes/funcionesAdmin/PaquetesFunciones.jsx"; // ✅ importar función
+import { reactivarPaquete } from "../componentesPaquetes/funcionesAdmin/PaquetesFunciones.jsx"; 
 
 export default function PaqueteInactivoCard({ paquete, token, setPaquetes }) {
   const handleReactivar = async () => {
@@ -9,7 +9,7 @@ export default function PaqueteInactivoCard({ paquete, token, setPaquetes }) {
       setPaquetes((prev) =>
         prev.map((p) =>
           p.idPaquete === paquete.idPaquete
-            ? { ...p, estadoPaqueteActivo: 1 } // ✅ actualizar estado
+            ? { ...p, estadoPaqueteActivo: 1 } 
             : p
         )
       );
@@ -25,7 +25,7 @@ export default function PaqueteInactivoCard({ paquete, token, setPaquetes }) {
             {campo}: {valor}
           </p>
         ))}
-        {/* ✅ botón de reactivar visible solo para admin */}
+        {/* botón de reactivar visible solo para admin */}
         <button className="BotonesPaquetes" onClick={handleReactivar}>
           Reactivar
         </button>

@@ -15,7 +15,7 @@ export default function PaqueteActivoCard({
 }) {
   const camposDisponibles = [
     "destino", "fechaSalida", "hora", "transporte", "traslado", "servicios",
-    "alimentacion", "bebidas", "actividades", "monto", "imagen_url" // ✅ corregido
+    "alimentacion", "bebidas", "actividades", "monto", "imagen_url" 
   ];
 
   const handleEliminar = async () => {
@@ -33,7 +33,7 @@ export default function PaqueteActivoCard({
       setPaquetes((prev) =>
         prev.map((p) =>
           p.idPaquete === paquete.idPaquete
-            ? { ...p, estadoPaqueteActivo: 0 } // ✅ usar campo correcto
+            ? { ...p, estadoPaqueteActivo: 0 } 
             : p
         )
       );

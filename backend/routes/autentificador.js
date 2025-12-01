@@ -30,7 +30,7 @@ router.post('/register', async (req, res) => {
         return res.status(500).json({ message: 'Error al registrar cliente. Intenta nuevamente.' });
       }
 
-      // 👇 devolvemos el cliente_id recién creado
+      // devolvemos el cliente_id recién creado
       res.status(201).json({
         message: 'Cliente registrado exitosamente',
         cliente_id: result.insertId,
@@ -74,7 +74,7 @@ router.post('/login', async (req, res) => {
                 return res.status(401).json({ message: 'Contraseña incorrecta' });
             }
 
-            // 🔑 Token para admin
+            // Token para admin
             const token = jwt.sign(
                 { rif: admin.rif, nombre: admin.nombre, correo: admin.correo, rol: 'admin' },
                 SECRET_KEY,
