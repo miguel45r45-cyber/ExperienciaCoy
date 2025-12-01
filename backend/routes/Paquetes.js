@@ -79,6 +79,22 @@ rutaPaquetes.get('/:id', (req, res) => {
 });
 
 /**
+ * ✅ Consultar si un paquete tiene reservaciones activas
+ */
+rutaPaquetes.get('/:id/reservaciones/check', verificarTokenAdmin, (req, res) => {
+  const idPaquete = req.params.id;
+  const sql = "SELECT COUNT(*) AS total FROM reservaciones WHERE paquete_id=? AND estado='activa'";
+  db.query(sql, [idPaquete], (err, rows) => {
+    if (err) {
+      console.error("Error SELECT reservaciones:", err);
+      return res.status(500).json({ mensaje: "Error al verificar reservaciones" });
+    }
+    const total = rows[0].total;
+    res.json({ paquete_id: idPaquete, total, tieneReservaciones: total > 0 });
+  });
+});
+
+/**
  * Actualizar paquete (solo admin)
  */
 rutaPaquetes.put('/:id', verificarTokenAdmin, upload.single('imagen'), (req, res) => {
@@ -146,7 +162,7 @@ rutaPaquetes.delete('/:id', verificarTokenAdmin, (req, res) => {
   const rif_admin = req.user.rif;
   const idPaquete = req.params.id;
 
-  const checkSql = 'SELECT COUNT(*) AS total FROM reservaciones WHERE idPaquete=?';
+  const checkSql = 'SELECT COUNT(*) AS total FROM reservaciones WHERE paquete_id=? AND estado="activa"';
   db.query(checkSql, [idPaquete], (err, rows) => {
     if (err) return res.status(500).json({ mensaje: 'Error al verificar reservaciones' });
 

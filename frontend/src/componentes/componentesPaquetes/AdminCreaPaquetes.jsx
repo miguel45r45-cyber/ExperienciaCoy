@@ -89,24 +89,11 @@ export default function AdminCrearPaquete() {
         </label>
 
         <label className="TituloCampo">Monto
-          {/* ✅ corregido: type="number" en vez de "float" */}
-          <input
-            className="camposCreacion"
-            type="number"
-            step="0.01"
-            name="monto"
-            placeholder="Monto"
-            onChange={onChange}
-          />
+          <input className="camposCreacion" type="float" name="monto" placeholder="Monto" onChange={onChange}/>
         </label>
 
         <label className="TituloCampo">Imagen de paquete
-          {/* ✅ agregado accept="image/*" */}
-          <input
-            className="camposCreacion"
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImagen(e.target.files[0])}
+          <input className="camposCreacion" type="file" accept="image/*" onChange={(e) => setImagen(e.target.files[0])}
           />
         </label>
 

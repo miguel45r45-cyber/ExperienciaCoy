@@ -83,4 +83,18 @@ rutaReservaciones.get('/', (req, res) => {
   });
 });
 
+// ✅ Nuevo endpoint: verificar si un paquete tiene reservaciones activas
+rutaReservaciones.get('/paquete/:id/check', (req, res) => {
+  const { id } = req.params;
+  const sql = "SELECT COUNT(*) AS total FROM reservaciones WHERE paquete_id = ? AND estado = 'activa'";
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error("Error SELECT reservaciones:", err);
+      return res.status(500).json({ mensaje: "Error al verificar reservaciones" });
+    }
+    const total = result[0].total;
+    res.json({ paquete_id: id, total, tieneReservaciones: total > 0 });
+  });
+});
+
 module.exports = rutaReservaciones;
