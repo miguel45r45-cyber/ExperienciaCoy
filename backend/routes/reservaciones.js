@@ -4,22 +4,10 @@ const db = require('../dataBase/db');
 
 // Crear reservación
 rutaReservaciones.post('/', (req, res) => {
-  const {
-    cliente_id,
-    paquete_id,
-    destino,
-    nombre_cliente,
-    ci_cliente,
-    telefono_cliente,
-    correo_cliente,
-    cupos,
-    montoPagar,
-    metodoPago_id
-  } = req.body;
+  const { cliente_id, paquete_id, cupos, montoPagar, metodoPago_id } = req.body;
 
   // Validar datos obligatorios
-  if (!cliente_id || !paquete_id || !destino || !nombre_cliente || !ci_cliente ||
-      !telefono_cliente || !correo_cliente || !cupos || !montoPagar || !metodoPago_id) {
+  if (!cliente_id || !paquete_id || !cupos || !montoPagar || !metodoPago_id) {
     return res.status(400).json({ mensaje: "Datos incompletos para la reservación" });
   }
 
@@ -43,16 +31,15 @@ rutaReservaciones.post('/', (req, res) => {
 
       const rif_admin = resultPaquete[0].rif_admin;
 
-      // 3. Insertar reservación con rif_admin incluido
+      // 3. Insertar reservación SIN datos redundantes
       const sqlInsert = `
         INSERT INTO reservaciones 
-        (cliente_id, paquete_id, rif_admin, destino, nombre_cliente, ci_cliente, telefono_cliente, correo_cliente, cupos, montoPagar, metodoPago_id, formaPago)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (cliente_id, paquete_id, rif_admin, cupos, montoPagar, metodoPago_id, formaPago)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
       `;
 
       db.query(sqlInsert, [
-        cliente_id, paquete_id, rif_admin, destino, nombre_cliente, ci_cliente,
-        telefono_cliente, correo_cliente, cupos, montoPagar, metodoPago_id, formaPago
+        cliente_id, paquete_id, rif_admin, cupos, montoPagar, metodoPago_id, formaPago
       ], (err, resultInsert) => {
         if (err) {
           console.error("Error INSERT reservaciones:", err);
@@ -67,10 +54,13 @@ rutaReservaciones.post('/', (req, res) => {
 // Obtener todas las reservaciones (para admin)
 rutaReservaciones.get('/', (req, res) => {
   const sql = `
-    SELECT r.idReservacion, r.destino, r.nombre_cliente, r.ci_cliente, r.telefono_cliente,
-           r.correo_cliente, r.cupos, r.montoPagar, r.fechaReserva, r.estado,
-           r.rif_admin, p.destino AS paqueteDestino, r.formaPago
+    SELECT 
+      r.idReservacion, r.cupos, r.montoPagar, r.fechaReserva, r.estado,
+      r.rif_admin, r.formaPago,
+      c.nombre AS nombre_cliente, c.ci AS ci_cliente, c.telefono AS telefono_cliente, c.correo AS correo_cliente,
+      p.destino AS destino_paquete
     FROM reservaciones r
+    JOIN cliente c ON r.cliente_id = c.cliente_id
     JOIN paquetes p ON r.paquete_id = p.idPaquete
     JOIN metodo_pago m ON r.metodoPago_id = m.idMetodoPago
   `;
@@ -86,7 +76,7 @@ rutaReservaciones.get('/', (req, res) => {
 // ✅ Nuevo endpoint: verificar si un paquete tiene reservaciones activas
 rutaReservaciones.get('/paquete/:id/check', (req, res) => {
   const { id } = req.params;
-  const sql = "SELECT COUNT(*) AS total FROM reservaciones WHERE paquete_id = ? AND estado = 'activa'";
+  const sql = "SELECT COUNT(*) AS total FROM reservaciones WHERE paquete_id = ? AND estado = 'aprobada'";
   db.query(sql, [id], (err, result) => {
     if (err) {
       console.error("Error SELECT reservaciones:", err);

@@ -9,17 +9,18 @@ export default function GestionReservacion({ paquete, token, rol }) {
   const [cupos, setCupos] = useState(1);
   const [montoTotal, setMontoTotal] = useState(paquete?.monto ?? 0);
 
+  // 🔎 Cargar métodos de pago activos
   useEffect(() => {
     fetch("http://localhost:5000/api/metodo_pago")
       .then((r) => r.json())
       .then((data) => {
-        // 👇 Filtrar solo los activos
         const activos = data.filter((m) => m.activo === 1);
         setMetodosPago(activos);
       })
       .catch(() => setMetodosPago([]));
   }, []);
 
+  // 🔎 Recalcular monto total cuando cambian cupos
   useEffect(() => {
     setMontoTotal((paquete?.monto ?? 0) * cupos);
   }, [cupos, paquete?.monto]);
@@ -38,20 +39,13 @@ export default function GestionReservacion({ paquete, token, rol }) {
       return;
     }
 
-    const metodo = metodosPago.find((m) => m.idMetodoPago === metodoSeleccionado);
-
+    // 🔎 Solo enviamos los datos necesarios
     const body = {
       cliente_id: user?.cliente_id,
       paquete_id: paquete.idPaquete,
-      destino: paquete.destino,
-      nombre_cliente: user?.nombre ?? "Cliente",
-      ci_cliente: user?.ci ?? "N/A",
-      telefono_cliente: user?.telefono ?? "N/A",
-      correo_cliente: user?.correo ?? "N/A",
       cupos,
       montoPagar: montoTotal,
       metodoPago_id: metodoSeleccionado,
-      formaPago: metodo?.formaPago ?? "",
     };
 
     try {

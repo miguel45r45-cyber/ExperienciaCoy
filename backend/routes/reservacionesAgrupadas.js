@@ -1,3 +1,4 @@
+// backend/routes/reservacionesAgrupadas.js
 const express = require('express');
 const reservacionesAgrupadas = express.Router();
 const db = require('../dataBase/db');
@@ -8,16 +9,29 @@ reservacionesAgrupadas.get('/', verificarToken, (req, res) => {
   const { rol, cliente_id } = req.user || {};
 
   let sql = `
-    SELECT r.idReservacion, r.cliente_id, r.nombre_cliente, r.ci_cliente, r.telefono_cliente,
-    r.correo_cliente, r.cupos, r.montoPagar, r.formaPago, r.fechaReserva,
-    p.idPaquete, p.destino AS paqueteDestino, p.fechaSalida
+    SELECT 
+      r.idReservacion,
+      r.cliente_id,
+      c.nombre  AS nombre_cliente,
+      c.ci      AS ci_cliente,
+      c.telefono AS telefono_cliente,
+      c.correo  AS correo_cliente,
+      r.cupos,
+      r.montoPagar,
+      r.formaPago,
+      r.fechaReserva,
+      r.estado,
+      p.idPaquete,
+      p.destino   AS paqueteDestino,
+      p.fechaSalida
     FROM reservaciones r
     JOIN paquetes p ON r.paquete_id = p.idPaquete
+    JOIN cliente  c ON r.cliente_id = c.cliente_id
   `;
 
   const valores = [];
 
-  // 🔑 Si no es admin, filtramos por cliente_id
+  // Si no es admin, filtrar por cliente_id
   if (rol !== 'admin') {
     if (!cliente_id) {
       return res.status(400).json({ mensaje: "Token inválido: falta cliente_id" });
@@ -34,7 +48,7 @@ reservacionesAgrupadas.get('/', verificarToken, (req, res) => {
       return res.status(500).json({ mensaje: "Error al obtener reservaciones agrupadas" });
     }
 
-    // Agrupamos por paquete
+    // Agrupar por paquete
     const agrupadas = {};
     results.forEach(r => {
       if (!agrupadas[r.idPaquete]) {
@@ -57,7 +71,8 @@ reservacionesAgrupadas.get('/', verificarToken, (req, res) => {
         cupos: r.cupos,
         montoPagar: r.montoPagar,
         formaPago: r.formaPago,
-        fechaReserva: r.fechaReserva
+        fechaReserva: r.fechaReserva,
+        estado: r.estado
       });
     });
 
