@@ -15,8 +15,8 @@ export async function eliminarPaquete(id, token) {
 
 export async function guardarEdicion(paquete, campoEditando, token) {
   const fd = new FormData();
-  if (campoEditando === "imagen") {
-    fd.append("imagen", paquete.imagen);
+  if (campoEditando === "imagen_url") {
+    fd.append("imagen", paquete.imagen_url); // ✅ backend espera imagen_url
   } else {
     fd.append(campoEditando, paquete[campoEditando] ?? "");
   }
@@ -31,7 +31,7 @@ export async function guardarEdicion(paquete, campoEditando, token) {
 
 export async function inactivarPaquete(id, token) {
   const res = await fetch(`${API_URL}/${id}/inactivar`, {
-    method: "PUT",
+    method: "PATCH", // ✅ backend espera PATCH
     headers: { Authorization: "Bearer " + token },
   });
   return res.json();
@@ -39,7 +39,7 @@ export async function inactivarPaquete(id, token) {
 
 export async function reactivarPaquete(id, token) {
   const res = await fetch(`${API_URL}/${id}/reactivar`, {
-    method: "PUT",
+    method: "PATCH", // ✅ backend espera PATCH
     headers: { Authorization: "Bearer " + token },
   });
   return res.json();

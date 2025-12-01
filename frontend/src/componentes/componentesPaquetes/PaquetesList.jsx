@@ -20,8 +20,13 @@ export default function PaquetesList() {
     });
   }, []);
 
-  const paquetesActivos = paquetes.filter((p) => p.activo === 1 || p.activo === true);
-  const paquetesInactivos = paquetes.filter((p) => p.activo === 0 || p.activo === false);
+  // ✅ usar estadoPaqueteActivo en vez de activo
+  const paquetesActivos = paquetes.filter(
+    (p) => p.estadoPaqueteActivo === 1 || p.estadoPaqueteActivo === true
+  );
+  const paquetesInactivos = paquetes.filter(
+    (p) => p.estadoPaqueteActivo === 0 || p.estadoPaqueteActivo === false
+  );
 
   // Si no hay paquetes activos y el usuario NO es admin
   if (paquetesActivos.length === 0 && rol !== "admin") {
@@ -86,7 +91,8 @@ export default function PaquetesList() {
           <h2 className="TituloPaqueteEstado">Paquetes Inactivos</h2>
           {paquetesInactivos.map((p) => (
             <div key={p.idPaquete} className="paqueteEnvuelto inactivo">
-              <PaqueteInactivoCard paquete={p} />
+              {/* ✅ pasar token y setPaquetes para reactivar */}
+              <PaqueteInactivoCard paquete={p} token={token} setPaquetes={setPaquetes} />
             </div>
           ))}
         </>

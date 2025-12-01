@@ -15,7 +15,7 @@ export default function PaqueteActivoCard({
 }) {
   const camposDisponibles = [
     "destino", "fechaSalida", "hora", "transporte", "traslado", "servicios",
-    "alimentacion", "bebidas", "actividades", "monto", "imagen"
+    "alimentacion", "bebidas", "actividades", "monto", "imagen_url" // ✅ corregido
   ];
 
   const handleEliminar = async () => {
@@ -32,7 +32,9 @@ export default function PaqueteActivoCard({
     if (res.mensaje) {
       setPaquetes((prev) =>
         prev.map((p) =>
-          p.idPaquete === paquete.idPaquete ? { ...p, activo: 0 } : p
+          p.idPaquete === paquete.idPaquete
+            ? { ...p, estadoPaqueteActivo: 0 } // ✅ usar campo correcto
+            : p
         )
       );
     }
@@ -53,39 +55,47 @@ export default function PaqueteActivoCard({
       {editando === paquete.idPaquete ? (
         campoEditando ? (
           <form className="formEditar" onSubmit={handleGuardar}>
-            {campoEditando === "imagen" ? (   
+            {campoEditando === "imagen_url" ? (   // ✅ corregido
               <input 
                 className="inputEditar"
                 type="file"
+                accept="image/*"
                 onChange={(e) =>
                   setPaquetes((prev) =>
                     prev.map((p) =>
                       p.idPaquete === paquete.idPaquete
-                        ? { ...p, imagen: e.target.files[0] }
+                        ? { ...p, imagen_url: e.target.files[0] } // ✅ usar imagen_url
                         : p
                     )
                   )
                 }
               />
             ) : (
-                    <input 
-                    className="inputEditar"
-                    name={campoEditando}
-                    value={paquete[campoEditando] ?? ""}
-                    onChange={(e) =>
-                      setPaquetes((prev) =>
-                        prev.map((p) =>
-                          p.idPaquete === paquete.idPaquete
-                            ? { ...p, [campoEditando]: e.target.value }
-                            : p
-                        )
-                      )
-                    }
-                  />
+              <input 
+                className="inputEditar"
+                name={campoEditando}
+                value={paquete[campoEditando] ?? ""}
+                onChange={(e) =>
+                  setPaquetes((prev) =>
+                    prev.map((p) =>
+                      p.idPaquete === paquete.idPaquete
+                        ? { ...p, [campoEditando]: e.target.value }
+                        : p
+                    )
+                  )
+                }
+              />
             )}
             <div className="accionesEditar">
               <button className="BotonesPaquetes" type="submit">Guardar</button>
-              <button className="BotonesPaquetes" type="button" onClick={() => { setCampoEditando(null); setEditando(null); }}>
+              <button
+                className="BotonesPaquetes"
+                type="button"
+                onClick={() => {
+                  setCampoEditando(null);
+                  setEditando(null);
+                }}
+              >
                 Cancelar
               </button>
             </div>
@@ -94,26 +104,44 @@ export default function PaqueteActivoCard({
           <div className="containerEditar">
             <p className="tituloSeccion">¿Qué campo deseas editar?</p>
             {camposDisponibles.map((campo) => (
-              <button className="botonEdid" key={campo} onClick={() => setCampoEditando(campo)}>
+              <button
+                className="botonEdid"
+                key={campo}
+                onClick={() => setCampoEditando(campo)}
+              >
                 {campo}
               </button>
             ))}
-            <button className="BotonesPaquetes" onClick={() => setEditando(null)}>Cancelar</button>
+            <button
+              className="BotonesPaquetes"
+              onClick={() => setEditando(null)}
+            >
+              Cancelar
+            </button>
           </div>
         )
       ) : (
         <>
           {paquete.imagen_url && (
             <div className="imagenPaquete">
-              <img className="imagen" src={`http://localhost:5000/uploads/${paquete.imagen_url}`} alt={paquete.destino} />
+              <img
+                className="imagen"
+                src={`http://localhost:5000/uploads/${paquete.imagen_url}`}
+                alt={paquete.destino}
+              />
             </div>
           )}
 
           <div className="containerinfoPaquete">
             <h3 className="TituloPaquete">{paquete.destino}</h3>
-            <p className="NombreInfo">Fecha: {new Date(paquete.fechaSalida).toLocaleDateString("es-VE")}</p>
+            <p className="NombreInfo">
+              Fecha:{" "}
+              {new Date(paquete.fechaSalida).toLocaleDateString("es-VE")}
+            </p>
             {getCamposVisibles(paquete).map(([campo, valor]) => (
-              <p className="NombreInfo" key={campo}>{campo}: {valor}</p> 
+              <p className="NombreInfo" key={campo}>
+                {campo}: {valor}
+              </p>
             ))}
             <GestionReservacion paquete={paquete} rol={rol} token={token} />
           </div>
@@ -123,9 +151,18 @@ export default function PaqueteActivoCard({
       {rol?.toLowerCase() === "admin" && (
         <div className="acciones-admin componentesEstado">
           <div className="containerbotones">
-            <button className="BotonesPaquetes" onClick={() => setEditando(paquete.idPaquete)}>Editar</button>
-            <button className="BotonesPaquetes" onClick={handleInactivar}>Inactivar</button>
-            <button className="BotonesPaquetes" onClick={handleEliminar}>Eliminar</button>
+            <button
+              className="BotonesPaquetes"
+              onClick={() => setEditando(paquete.idPaquete)}
+            >
+              Editar
+            </button>
+            <button className="BotonesPaquetes" onClick={handleInactivar}>
+              Inactivar
+            </button>
+            <button className="BotonesPaquetes" onClick={handleEliminar}>
+              Eliminar
+            </button>
           </div>
         </div>
       )}
