@@ -3,6 +3,7 @@
     border-radius: 5vh;
     margin: auto;
     margin-top: 3vh;
+    margin-bottom: 4vh;
     max-width: 55%;
     padding: 5vh;
 }
@@ -127,6 +128,7 @@
 }
 
 .paqueteEnvuelto{
+    margin-top: 5vh;
     margin-bottom: 6vh;
 }
 

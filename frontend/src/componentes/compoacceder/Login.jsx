@@ -18,11 +18,6 @@ export default function Login() {
     e.preventDefault();
 
     // Bloquear si ya está logueado
-    
-    if (user === user){
-    alert("Ya estas en tu cuenta");
-    return;
-    }
 
     if (user) {
         alert("Ya tienes una sesión activa, no puedes iniciar otra.");

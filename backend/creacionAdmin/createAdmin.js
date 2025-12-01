@@ -4,7 +4,7 @@ const db = require('../dataBase/db'); // conectamos con la base de datos
 const crearAdmin = async () => {// funcion para crear admin 
     const rif = 'J-501718660';
     const correo = 'experienciacoy@gmail.com';
-    const contrasena = '/experienciacoy2025/';
+    const contrasena = '1234';
 
     try {
     const salt = await bcrypt.genSalt(10);// salt variable que generara valores aleatorios  

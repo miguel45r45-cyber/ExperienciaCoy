@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../UserContext";
 import { fetchPaquetes, guardarEdicion } from "../componentesPaquetes/funcionesAdmin/PaquetesFunciones.jsx";
 import PaqueteActivoCard from "../componentesPaquetes/PaqueteActivoCard";
@@ -14,7 +14,7 @@ export default function PaquetesList() {
   const { token, rol } = useContext(UserContext);
 
   // cargar paquetes al montar
-  useState(() => {
+  useEffect(() => {
     fetchPaquetes().then((data) => {
       setPaquetes(Array.isArray(data) ? data : []);
     });
@@ -23,14 +23,47 @@ export default function PaquetesList() {
   const paquetesActivos = paquetes.filter((p) => p.activo === 1 || p.activo === true);
   const paquetesInactivos = paquetes.filter((p) => p.activo === 0 || p.activo === false);
 
+  // Si no hay paquetes activos y el usuario NO es admin
   if (paquetesActivos.length === 0 && rol !== "admin") {
     return <p className="TituloSinPaquetes">No hay paquetes publicados</p>;
   }
 
   return (
     <div className="Paquete-Publi">
-      {rol === "admin" && paquetesActivos.length === 0 ? (
-        <h2 className="TituloPaqueteEstado">No hay paquetes activos</h2>
+      {rol === "admin" ? (
+        paquetesActivos.length === 0 ? (
+          <h2 className="TituloPaqueteEstado">No hay paquetes activos</h2>
+        ) : (
+          <>
+            <h2 className="TituloPaqueteEstado">Paquetes Activos</h2>
+            {paquetesActivos.map((p) => (
+              <div key={p.idPaquete} className="paqueteEnvuelto">
+                <PaqueteActivoCard
+                  paquete={p}
+                  rol={rol}
+                  token={token}
+                  editando={editando}
+                  campoEditando={campoEditando}
+                  setEditando={setEditando}
+                  setCampoEditando={setCampoEditando}
+                  guardarEdicion={(paq) =>
+                    guardarEdicion(paq, campoEditando, token).then((data) => {
+                      alert(data?.mensaje || "Edición guardada");
+                      setEditando(null);
+                      setCampoEditando(null);
+                      setPaquetes((prev) =>
+                        prev.map((x) =>
+                          x.idPaquete === paq.idPaquete ? { ...x, ...paq } : x
+                        )
+                      );
+                    })
+                  }
+                  setPaquetes={setPaquetes}
+                />
+              </div>
+            ))}
+          </>
+        )
       ) : (
         paquetesActivos.map((p) => (
           <div key={p.idPaquete} className="paqueteEnvuelto">
@@ -42,18 +75,6 @@ export default function PaquetesList() {
               campoEditando={campoEditando}
               setEditando={setEditando}
               setCampoEditando={setCampoEditando}
-              guardarEdicion={(paq) =>
-                guardarEdicion(paq, campoEditando, token).then((data) => {
-                  alert(data?.mensaje || "Edición guardada");
-                  setEditando(null);
-                  setCampoEditando(null);
-                  setPaquetes((prev) =>
-                    prev.map((x) =>
-                      x.idPaquete === paq.idPaquete ? { ...x, ...paq } : x
-                    )
-                  );
-                })
-              }
               setPaquetes={setPaquetes}
             />
           </div>
