@@ -1,4 +1,4 @@
-import { getCamposVisibles } from "../componentesPaquetes/utils/paqueteUtils";
+import { getCamposVisibles } from "../componentesPaquetes/camposPaquetes/camposLlenosPaquetes";
 
 export default function PaqueteInactivoCard({ paquete }) {
   return (
