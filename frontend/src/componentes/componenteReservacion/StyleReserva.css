@@ -95,3 +95,10 @@
     font-size: 3vh;
     outline: none;
 }
+
+.tituloPendientes, 
+.tituloProcesadas{
+    color: aliceblue;
+    font-size: 4.5vh;
+    margin-bottom: 5vh;
+}

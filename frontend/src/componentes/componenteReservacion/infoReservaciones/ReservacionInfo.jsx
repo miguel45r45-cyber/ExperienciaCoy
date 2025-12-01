@@ -21,7 +21,12 @@ function ReservacionInfo({ res, user, cambiarEstado, guardarComentario }) {
       <p className="nombreInfo"><strong>Forma de pago:</strong> {res.formaPago}</p>
       <p className="nombreInfo">
         <strong>Fecha reserva:</strong>{" "}
-        {new Date(res.fechaReserva).toLocaleString("es-VE")}
+        {new Date(res.fechaReserva).toLocaleDateString("es-VE")}{" "}
+        {new Date(res.fechaReserva).toLocaleTimeString("es-VE", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        })}
       </p>
       <p className="nombreInfo"><strong>Estado:</strong> {res.estado || "pendiente"}</p>
 
@@ -83,7 +88,15 @@ function ReservacionInfo({ res, user, cambiarEstado, guardarComentario }) {
       <div className="comentarios">
         {res.seguimiento?.map((c) => (
           <p className="nombreInfo" key={c.idSeguimiento}>
-            <strong>{new Date(c.fecha).toLocaleString("es-VE")}:</strong>{" "}
+            <strong>
+              {new Date(c.fecha).toLocaleDateString("es-VE")}{" "}
+              {new Date(c.fecha).toLocaleTimeString("es-VE", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })}
+              :
+            </strong>{" "}
             {c.comentario}
           </p>
         ))}
