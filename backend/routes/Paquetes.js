@@ -22,7 +22,7 @@ rutaPaquetes.post('/', verificarTokenAdmin, upload.single('imagen'), (req, res) 
   const sql = `
     INSERT INTO paquetes
     (destino, fechaSalida, hora, transporte, traslado, servicios, alimentacion, bebidas, actividades,
-    monto, rif_admin, imagen_url, activo)
+    monto, rif_admin, imagen_url, estadoPaqueteActivo)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
   `;
 
@@ -42,7 +42,7 @@ rutaPaquetes.post('/', verificarTokenAdmin, upload.single('imagen'), (req, res) 
  * Obtener todos los paquetes (activos e inactivos)
  */
 rutaPaquetes.get('/', (req, res) => {
-  db.query('SELECT * FROM paquetes ORDER BY activo DESC, fechaSalida ASC', (err, results) => {
+  db.query('SELECT * FROM paquetes ORDER BY estadoPaqueteActivo DESC, fechaSalida ASC', (err, results) => {
     if (err) return res.status(500).json({ mensaje: 'Error al obtener paquetes' });
     res.json(results || []);
   });
@@ -52,7 +52,7 @@ rutaPaquetes.get('/', (req, res) => {
  * Obtener paquetes públicos (solo activos)
  */
 rutaPaquetes.get('/public', (req, res) => {
-  db.query('SELECT * FROM paquetes WHERE activo=1 ORDER BY fechaSalida ASC', (err, results) => {
+  db.query('SELECT * FROM paquetes WHERE estadoPaqueteActivo=1 ORDER BY fechaSalida ASC', (err, results) => {
     if (err) return res.status(500).json({ mensaje: 'Error al obtener paquetes públicos' });
     res.json(results || []);
   });
@@ -62,7 +62,7 @@ rutaPaquetes.get('/public', (req, res) => {
  * Obtener paquetes para admin
  */
 rutaPaquetes.get('/admin', verificarTokenAdmin, (req, res) => {
-  db.query('SELECT * FROM paquetes ORDER BY activo DESC, fechaSalida ASC', (err, results) => {
+  db.query('SELECT * FROM paquetes ORDER BY estadoPaqueteActivo DESC, fechaSalida ASC', (err, results) => {
     if (err) return res.status(500).json({ mensaje: 'Error al obtener paquetes admin' });
     res.json(results || []);
   });
@@ -90,7 +90,7 @@ rutaPaquetes.put('/:id', verificarTokenAdmin, upload.single('imagen'), (req, res
 
   const permitidos = [
     "destino", "fechaSalida", "hora", "transporte", "traslado", "servicios",
-    "alimentacion", "bebidas", "actividades", "monto", "activo"
+    "alimentacion", "bebidas", "actividades", "monto", "estadoPaqueteActivo"
   ];
 
   permitidos.forEach((campo) => {
@@ -127,11 +127,11 @@ rutaPaquetes.put('/:id', verificarTokenAdmin, upload.single('imagen'), (req, res
 /**
  * Inactivar paquete (solo admin)
  */
-rutaPaquetes.put('/:id/inactivar', verificarTokenAdmin, (req, res) => {
+rutaPaquetes.patch('/:id/inactivar', verificarTokenAdmin, (req, res) => {
   const rif_admin = req.user.rif;
   const idPaquete = req.params.id;
 
-  const sql = 'UPDATE paquetes SET activo=0 WHERE idPaquete=? AND rif_admin=?';
+  const sql = 'UPDATE paquetes SET estadoPaqueteActivo=0 WHERE idPaquete=? AND rif_admin=?';
   db.query(sql, [idPaquete, rif_admin], (err, result) => {
     if (err) return res.status(500).json({ mensaje: 'Error al inactivar paquete' });
     if (result.affectedRows === 0) return res.status(404).json({ mensaje: 'Paquete no encontrado o no autorizado' });
@@ -166,11 +166,11 @@ rutaPaquetes.delete('/:id', verificarTokenAdmin, (req, res) => {
 /**
  * Reactivar paquete (solo admin)
  */
-rutaPaquetes.put('/:id/reactivar', verificarTokenAdmin, (req, res) => {
+rutaPaquetes.patch('/:id/reactivar', verificarTokenAdmin, (req, res) => {
   const rif_admin = req.user.rif;
   const idPaquete = req.params.id;
 
-  const sql = 'UPDATE paquetes SET activo=1 WHERE idPaquete=? AND rif_admin=?';
+  const sql = 'UPDATE paquetes SET estadoPaqueteActivo=1 WHERE idPaquete=? AND rif_admin=?';
   db.query(sql, [idPaquete, rif_admin], (err, result) => {
     if (err) return res.status(500).json({ mensaje: 'Error al reactivar paquete' });
     if (result.affectedRows === 0) return res.status(404).json({ mensaje: 'Paquete no encontrado o no autorizado' });
