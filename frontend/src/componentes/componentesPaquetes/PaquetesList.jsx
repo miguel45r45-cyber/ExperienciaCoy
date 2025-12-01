@@ -1,20 +1,20 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "../../UserContext";
 import { fetchPaquetes, guardarEdicion } from "../componentesPaquetes/funcionesAdmin/PaquetesFunciones.jsx";
 import PaqueteActivoCard from "../componentesPaquetes/PaqueteActivoCard";
 import PaqueteInactivoCard from "../componentesPaquetes/PaqueteInactivoCard";
-import { decodeRol } from "../componentesPaquetes/utils/decodeRol";
 import "../componentesPaquetes/StylePaquetes.css";
 
 export default function PaquetesList() {
   const [paquetes, setPaquetes] = useState([]);
   const [editando, setEditando] = useState(null);
   const [campoEditando, setCampoEditando] = useState(null);
-  const { token } = useContext(UserContext);
 
-  const rol = decodeRol(token);
+  // 👇 ahora el rol viene directo del contexto
+  const { token, rol } = useContext(UserContext);
 
-  useEffect(() => {
+  // cargar paquetes al montar
+  useState(() => {
     fetchPaquetes().then((data) => {
       setPaquetes(Array.isArray(data) ? data : []);
     });
@@ -33,7 +33,6 @@ export default function PaquetesList() {
         <h2 className="TituloPaqueteEstado">No hay paquetes activos</h2>
       ) : (
         paquetesActivos.map((p) => (
-        <div>
           <div key={p.idPaquete} className="paqueteEnvuelto">
             <PaqueteActivoCard
               paquete={p}
@@ -58,10 +57,9 @@ export default function PaquetesList() {
               setPaquetes={setPaquetes}
             />
           </div>
-        </div>
         ))
       )}
-  
+
       {rol === "admin" && paquetesInactivos.length > 0 && (
         <>
           <h2 className="TituloPaqueteEstado">Paquetes Inactivos</h2>
@@ -73,4 +71,5 @@ export default function PaquetesList() {
         </>
       )}
     </div>
-)};
+  );
+}
