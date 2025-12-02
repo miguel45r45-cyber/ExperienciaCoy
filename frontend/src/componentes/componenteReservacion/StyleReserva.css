@@ -97,7 +97,8 @@
 }
 
 .tituloPendientes, 
-.tituloProcesadas{
+.tituloProcesadas
+.TituloEstatus{
     color: aliceblue;
     font-size: 4.5vh;
     margin-bottom: 5vh;

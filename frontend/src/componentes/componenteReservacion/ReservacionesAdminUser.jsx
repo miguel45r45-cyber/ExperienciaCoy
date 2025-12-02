@@ -3,6 +3,8 @@ import axios from "axios";
 import { UserContext } from "../../UserContext";
 import { useComentarios } from "../componenteReservacion/funcionComentarios/useComentarios";
 import ReservacionItem from "../componenteReservacion/infoReservaciones/ReservacionInfo";
+import "../componenteReservacion/StyleReserva.css"
+
 
 function ReservacionesAdminUser() {
   const [data, setData] = useState([]);
@@ -156,24 +158,38 @@ function ReservacionesAdminUser() {
   return (
     <div className="contenedor-paquetes">
       {/* Bloque Activos */}
-      <div className="paquetes-activos">
-        <h1>Paquetes Activos</h1>
-        {activos.length === 0 ? (
-          <p>No hay reservaciones en paquetes activos</p>
-        ) : (
-          activos.map(renderPaquete)
-        )}
-      </div>
 
-      {/* Bloque Inactivos */}
-      <div className="paquetes-inactivos">
-        <h1>Paquetes Inactivos</h1>
-        {inactivos.length === 0 ? (
-          <p>No hay reservaciones en paquetes inactivos</p>
-        ) : (
-          inactivos.map(renderPaquete)
-        )}
-      </div>
+      <div className="containerReservaciones">
+          {activos.length === 0 && inactivos.length === 0 ? (
+            <h1 className="TituloEstatus">No tienes reservaciones hechas</h1>
+          ) : (
+            <>
+              {inactivos.map(renderPaquete)}
+              {activos.map(renderPaquete)}
+            </>
+          )}
+        </div>
+        
+        <div className="paquetes-activos">
+          {activos.length < 1 ? (
+            <>
+              {activos.map(renderPaquete)}
+            </>
+          ) : (
+            <h1 className="TituloEstatus">Reservaciones de paquetes Activos</h1>
+          )}
+        </div>
+        
+        <div className="paquetes-inactivos">
+          {inactivos.length < 1 ? (
+            <>
+              {inactivos.map(renderPaquete)}
+            </>
+          ) : (
+              <h1 className="TituloEstatus">Reservaciones de paquetes Inactivos</h1>
+          )}
+        </div>
+
     </div>
   );
 }
