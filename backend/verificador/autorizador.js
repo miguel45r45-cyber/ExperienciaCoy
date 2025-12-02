@@ -20,7 +20,7 @@ function verificarToken(req, res, next) {
     }
 }
 
-//específico para admin
+// Middleware específico para admin
 function verificarTokenAdmin(req, res, next) {
     verificarToken(req, res, () => {
     if (!req.user || req.user.rol !== 'admin') {

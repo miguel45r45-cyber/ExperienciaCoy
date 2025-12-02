@@ -49,16 +49,16 @@ function ReservacionesAdminUser() {
     }
   };
 
-  // 🔎 Ordenar paquetes por fecha de salida (más próxima primero)
+  // Ordenar paquetes por fecha de salida (más próxima primero)
   const paquetesOrdenados = [...data].sort(
     (a, b) => new Date(a.paquete.fechaSalida) - new Date(b.paquete.fechaSalida)
   );
 
-  // 🔎 Separar activos e inactivos
+  // Separar activos e inactivos
   const activos = paquetesOrdenados.filter(p => p.paquete.estadoPaqueteActivo === 1);
   const inactivos = paquetesOrdenados.filter(p => p.paquete.estadoPaqueteActivo === 0);
 
-  // 🔎 Función auxiliar para renderizar un paquete
+  // Función auxiliar para renderizar un paquete
   const renderPaquete = (paquete) => {
     const pendientes = paquete.reservaciones
       .filter((r) => r.estado === "pendiente")
