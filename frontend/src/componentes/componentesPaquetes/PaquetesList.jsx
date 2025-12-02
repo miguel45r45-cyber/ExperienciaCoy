@@ -20,12 +20,19 @@ export default function PaquetesList() {
     });
   }, []);
 
-  // usar estadoPaqueteActivo en vez de activo
-  const paquetesActivos = paquetes.filter(
-    (p) => p.estadoPaqueteActivo === 1 || p.estadoPaqueteActivo === true
+  // 🔎 Función para ordenar por fecha de salida (día más próximo primero)
+  const ordenarPorDia = (listaPaquetes) =>
+    [...listaPaquetes].sort(
+      (a, b) => new Date(a.fechaSalida) - new Date(b.fechaSalida)
+    );
+
+  // usar estadoPaqueteActivo en vez de activo y aplicar orden
+  const paquetesActivos = ordenarPorDia(
+    paquetes.filter((p) => p.estadoPaqueteActivo === 1 || p.estadoPaqueteActivo === true)
   );
-  const paquetesInactivos = paquetes.filter(
-    (p) => p.estadoPaqueteActivo === 0 || p.estadoPaqueteActivo === false
+
+  const paquetesInactivos = ordenarPorDia(
+    paquetes.filter((p) => p.estadoPaqueteActivo === 0 || p.estadoPaqueteActivo === false)
   );
 
   // Si no hay paquetes activos y el usuario NO es admin

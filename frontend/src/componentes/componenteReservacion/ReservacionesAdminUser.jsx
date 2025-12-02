@@ -49,12 +49,17 @@ function ReservacionesAdminUser() {
     }
   };
 
+  // 🔎 Ordenar paquetes por fecha de salida (más próxima primero)
+  const paquetesOrdenados = [...data].sort(
+    (a, b) => new Date(a.paquete.fechaSalida) - new Date(b.paquete.fechaSalida)
+  );
+
   return (
     <div className="contenedor-paquetes">
-      {data.length === 0 ? (
+      {paquetesOrdenados.length === 0 ? (
         <p className="tituloReserva paqueteConjunto">No hay reservaciones</p>
       ) : (
-        data.map((paquete) => {
+        paquetesOrdenados.map((paquete) => {
           const pendientes = paquete.reservaciones
             .filter((r) => r.estado === "pendiente")
             .sort((a, b) => new Date(a.fechaReserva) - new Date(b.fechaReserva));
