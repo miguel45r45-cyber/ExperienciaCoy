@@ -12,10 +12,10 @@ reservacionesAgrupadas.get('/', verificarToken, (req, res) => {
     SELECT 
       r.idReservacion,
       r.cliente_id,
-      c.nombre  AS nombre_cliente,
-      c.ci      AS ci_cliente,
+      c.nombre   AS nombre_cliente,
+      c.ci       AS ci_cliente,
       c.telefono AS telefono_cliente,
-      c.correo  AS correo_cliente,
+      c.correo   AS correo_cliente,
       r.cupos,
       r.montoPagar,
       r.formaPago,
@@ -23,7 +23,8 @@ reservacionesAgrupadas.get('/', verificarToken, (req, res) => {
       r.estado,
       p.idPaquete,
       p.destino   AS paqueteDestino,
-      p.fechaSalida
+      p.fechaSalida,
+      p.estadoPaqueteActivo   -- 👈 CORREGIDO: incluir estado del paquete
     FROM reservaciones r
     JOIN paquetes p ON r.paquete_id = p.idPaquete
     JOIN cliente  c ON r.cliente_id = c.cliente_id
@@ -56,7 +57,8 @@ reservacionesAgrupadas.get('/', verificarToken, (req, res) => {
           paquete: {
             idPaquete: r.idPaquete,
             destino: r.paqueteDestino,
-            fechaSalida: r.fechaSalida
+            fechaSalida: r.fechaSalida,
+            estadoPaqueteActivo: r.estadoPaqueteActivo // 👈 CORREGIDO: guardar estado
           },
           reservaciones: []
         };
