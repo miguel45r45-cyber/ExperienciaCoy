@@ -1,10 +1,10 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import "../compoacceder/styleRegistro.css";
-import { UserContext } from "../../UserContext";
 
 export default function CrearPreguntaSeguridad() {
-  const { user, token } = useContext(UserContext);
   const [form, setForm] = useState({ pregunta: "", respuesta: "" });
+
+  const clienteId = localStorage.getItem("cliente_id_registro");
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,20 +17,17 @@ export default function CrearPreguntaSeguridad() {
       return;
     }
 
-    if (!user?.cliente_id) {
-      alert("No se encontró el ID del cliente. Inicia sesión nuevamente.");
+    if (!clienteId) {
+      alert("No se encontró el ID del cliente. Regístrate primero.");
       return;
     }
 
     try {
       const res = await fetch("http://localhost:5000/api/seguridad", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token ? "Bearer " + token : undefined,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          cliente_id: user.cliente_id, // 👈 ahora sí enviamos el campo correcto
+          cliente_id: clienteId,
           pregunta: form.pregunta.trim(),
           respuesta: form.respuesta.trim(),
         }),
@@ -38,10 +35,11 @@ export default function CrearPreguntaSeguridad() {
 
       const data = await res.json();
       alert(data.message);
-      window.location.reload();
 
       if (res.ok) {
         setForm({ pregunta: "", respuesta: "" });
+        alert("Pregunta de seguridad guardada. Ahora inicia sesión.");
+        window.location.reload(); // 👈 ahora sí refresca la pantalla
       }
     } catch (error) {
       alert("Error al conectar con el servidor");

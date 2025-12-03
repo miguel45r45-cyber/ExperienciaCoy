@@ -3,7 +3,7 @@ import "../compoacceder/styleRegistro.css";
 import { UserContext } from "../../UserContext";
 
 export default function Register({ onRegistroExitoso }) {
-  const { login, user } = useContext(UserContext); // 👈 traemos el user
+  const { user } = useContext(UserContext); // 👈 ya no usamos login aquí
 
   const [form, setForm] = useState({
     ci: '',
@@ -21,13 +21,11 @@ export default function Register({ onRegistroExitoso }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 🚫 Bloquear si ya está logueado
     if (user) {
       alert("Ya tienes una sesión activa, no puedes registrar otro usuario.");
       return;
     }
 
-    // Validar campos vacíos
     for (const campo in form) {
       if (!form[campo]) {
         alert('Te falta llenar uno o más campos');
@@ -66,20 +64,14 @@ export default function Register({ onRegistroExitoso }) {
       alert(data.message);
 
       if (res.ok) {
-        const userData = {
-          cliente_id: data.cliente_id,
-          ci: form.ci,
-          nombre: form.nombre,
-          telefono: form.telefono,
-          correo: form.correo,
-          rol: 'cliente'
-        };
-
-        login(userData, data.token);
+        // Guardamos solo el cliente_id para usarlo en la pregunta de seguridad
+        localStorage.setItem("cliente_id_registro", data.cliente_id);
 
         if (onRegistroExitoso) {
           onRegistroExitoso(data.cliente_id);
         }
+
+        alert("Registro exitoso. Ahora crea tu pregunta de seguridad.");
       }
     } catch (error) {
       alert('Error al conectar con el servidor');

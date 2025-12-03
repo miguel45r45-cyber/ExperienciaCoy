@@ -156,41 +156,35 @@ function ReservacionesAdminUser() {
   };
 
   return (
-    <div className="contenedor-paquetes">
-      {/* Bloque Activos */}
+<div className="contenedor-paquetes">
+  {/* Bloque general: si no hay nada */}
+  <div className="containerReservaciones">
+    {activos.length === 0 && inactivos.length === 0 ? (
+      <h1 className="TituloEstatus">No tienes reservaciones hechas</h1>
+    ) : null}
+  </div>
 
-      <div className="containerReservaciones">
-          {activos.length === 0 && inactivos.length === 0 ? (
-            <h1 className="TituloEstatus">No tienes reservaciones hechas</h1>
-          ) : (
-            <>
-              {inactivos.map(renderPaquete)}
-              {activos.map(renderPaquete)}
-            </>
-          )}
-        </div>
-        
-        <div className="paquetes-activos">
-          {activos.length < 1 ? (
-            <>
-              {activos.map(renderPaquete)}
-            </>
-          ) : (
-            <h1 className="TituloEstatus">Reservaciones de paquetes Activos</h1>
-          )}
-        </div>
-        
-        <div className="paquetes-inactivos">
-          {inactivos.length < 1 ? (
-            <>
-              {inactivos.map(renderPaquete)}
-            </>
-          ) : (
-              <h1 className="TituloEstatus">Reservaciones de paquetes Inactivos</h1>
-          )}
-        </div>
+  {/* Bloque Activos */}
+  <div className="paquetes-activos">
+    {activos.length > 0 ? (
+      <>
+        <h1 className="TituloEstatus">Reservaciones de paquetes Activos</h1>
+        {activos.map(renderPaquete)}
+      </>
+    ) : null}
+  </div>
 
-    </div>
+  {/* Bloque Inactivos */}
+  <div className="paquetes-inactivos">
+    {inactivos.length > 0 ? (
+      <>
+        <h1 className="TituloEstatus">Reservaciones de paquetes Inactivos</h1>
+        {inactivos.map(renderPaquete)}
+      </>
+    ) : null}
+  </div>
+</div>
+
   );
 }
 

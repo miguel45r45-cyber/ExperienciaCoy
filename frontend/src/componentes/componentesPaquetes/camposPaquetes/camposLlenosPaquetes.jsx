@@ -9,7 +9,7 @@ export function getCamposVisibles(paquete) {
     Bebidas: paquete.bebidas,
     Actividades: paquete.actividades,
     Precio: paquete.monto ? `$${paquete.monto}` : null,
-    Estado: paquete.estadoPaqueteActivo === 1 ? "Activo" : "Inactivo", // ✅ ahora compara con número
+    "Estado del paquete": paquete.estadoPaqueteActivo === 1 ? "Activo" : "Inactivo", // ✅ ahora compara con número
   };
 
   // Filtra solo los campos con valores no nulos ni vacíos

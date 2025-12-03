@@ -59,6 +59,7 @@ export default function GestionReservacion({ paquete, token, rol }) {
       });
       const data = await res.json();
       alert(data.mensaje || "Reservación creada");
+      window.location.reload();
     } catch {
       alert("Error al crear reservación");
     }
